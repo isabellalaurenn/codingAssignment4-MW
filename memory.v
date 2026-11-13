@@ -1,6 +1,6 @@
 /* Memory Stage: This uses the outputs of Execute Stage as well as combining the modules: and, data_memory, and mem_wb.
 */
-module MEMORY(
+module memory(
  input wire [1:0] wb_ctlout,
  input wire branch, memread, memwrite,
  input wire zero,
@@ -44,4 +44,4 @@ module MEMORY(
  .mem_write_reg(mem_write_reg)
  );
  
-endmodule  // MEMORY
+endmodule  // memory
