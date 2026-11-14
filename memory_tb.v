@@ -1,6 +1,6 @@
 //memoryTB.v
 
-module memoryTB();
+module memory_tb();
     
     reg clk;
     reg [31:0] ALUResult, WriteData;
