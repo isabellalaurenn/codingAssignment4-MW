@@ -1,6 +1,7 @@
 //memoryTB.v
 
 module memoryTB();
+    
     reg clk;
     reg [31:0] ALUResult, WriteData;
     reg [4:0] WriteReg;
@@ -10,8 +11,8 @@ module memoryTB();
     wire [4:0] WriteReg_out;
     wire [1:0] WBControl_out;
     wire PCSrc;
-
-memory uut (
+    
+    memory uut (
         .clk(clk),
         // Everything below was updated to match memory.v naming
         .alu_result(ALUResult),
@@ -27,40 +28,39 @@ memory uut (
         .mem_write_reg(WriteReg_out),
         .MEM_WB_regwrite(MEM_WB_regwrite), // added
         .MEM_PCSrc(PCSrc)
-        // .wb_ctlout(WBControl_out), REMOVED because duplicate
     );
     
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
     end
-
+    
     initial begin
-     // Mem Read
-    ALUResult = 32'h00000004;
-    WriteData = 32'h12345678;
-    WriteReg = 5'h02;
-    WBControl = 2'b01;
-    MemWrite = 0;
-    MemRead = 1;
-    Branch = 0;
-    Zero = 0;
-
-    #10; 
-
-    // Mem Write
-    MemWrite = 1;
-    MemRead = 0;
-    #10; // Allow write to occur
-    MemWrite = 0;
-    MemRead = 1;
-    #10; // Verify write by reading back
-
-    // Branch
-    Branch = 1;
-    Zero = 1;
-    #10; // Check PCSrc
-
-    $finish;
-end
+        // Mem Read
+        ALUResult = 32'h00000004;
+        WriteData = 32'h12345678;
+        WriteReg = 5'h02;
+        WBControl = 2'b01;
+        MemWrite = 0;
+        MemRead = 1;
+        Branch = 0;
+        Zero = 0;
+        
+        #10; 
+        
+        // Mem Write
+        MemWrite = 1;
+        MemRead = 0;
+        #10; // Allow write to occur
+        MemWrite = 0;
+        MemRead = 1;
+        #10; // Verify write by reading back
+        
+        // Branch
+        Branch = 1;
+        Zero = 1;
+        #10; // Check PCSrc
+        
+        $finish;
+    end
 endmodule
