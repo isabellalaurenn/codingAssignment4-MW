@@ -28,13 +28,13 @@ inspection] |
 ### Source Code
 | File | Description |
 |---|---|
-| [`AND.v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
-| [`data_memory.v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
-| [`memory.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
-| [`memory_tb.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
-| [`mem_wb_latch.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
-| [`writeback.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
-| [`data.txt`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`AND.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/AND.v) | ANDs Branch and Zero to product PCSrc |
+| [`data_memory.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/data_memory.v) | 256-word data memory. Stores on the clock edge and reads combinationally |
+| [`memory.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/memory.v) | Connects the AND gate, data memory, and MEM/WB Latch |
+| [`memory_tb.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/memory_tb.v) | Testbench for the full memory stage |
+| [`mem_wb_latch.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/mem_wb_latch.v) | Pipeline latch, clocked on the rising edge |
+| [`writeback.v`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/writeback.v) | Writeback stage. Mux that selects the data written back to the register file |
+| [`data.txt`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/data.txt) | Initial contents of data memory words 0-5 |
 
 ### Implementation Notes
 - [Explain one important design decision.]
@@ -53,7 +53,7 @@ Verification covers:
 ### Testbench and Waveform
 Save screenshots and waveform images in the repository's `images/` folder.
 ![Testbench or waveform](images/[testbench-screenshot-filename].png)
-The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
+The testbench source is available [*here*](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/memory_tb.v).
 ### Results
 | Test Case | Expected Result | Observed Result | Status |
 |---|---|---|---|
@@ -63,10 +63,10 @@ The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
 
 ## Reproduction Instructions
 ### Tools and Versions
-- **Simulator / synthesis tool:** [Name and version]
-- **Language / standard:** [Verilog/SystemVerilog version]
-- **Operating system:** [macOS, Windows, Linux, or other]
-- **Additional dependencies:** [List any required tools or libraries]
+- **Simulator / synthesis tool:** Xilinx Vivado
+- **Language / standard:** Verilog
+- **Operating system:** Windows
+- **Additional dependencies:** n/a
 ### Build and Run
 ```bash
 # Replace these commands with the commands required for this lab.
