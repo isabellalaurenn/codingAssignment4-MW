@@ -22,17 +22,20 @@ inspection] |
 
 ## Architecture
 ### Timing or Behavioral Summary
-Save diagrams in the repository's `images/` folder. Use relative paths so they
-display on GitHub.
-![Timing Diagram](images/[timing-diagram-filename].png)
+![Timing Diagram](images/timingDiagram.webp)
 
 ## Implementation
 ### Source Code
 | File | Description |
 |---|---|
-| [`[module].v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
-| [`[component].v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
-| [`[testbench].v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`AND.v`](LINK_TO_IMPLEMENTATION_CODE) | [Primary implementation module] |
+| [`data_memory.v`](LINK_TO_COMPONENT_CODE) | [Supporting component] |
+| [`memory.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`memory_tb.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`mem_wb_latch.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`writeback.v`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+| [`data.txt`](LINK_TO_TESTBENCH_CODE) | [Verification testbench] |
+
 ### Implementation Notes
 - [Explain one important design decision.]
 - [Identify any parameterization, reusable module, or interface convention.]
