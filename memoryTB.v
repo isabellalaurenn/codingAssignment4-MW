@@ -11,22 +11,24 @@ module memoryTB();
     wire [1:0] WBControl_out;
     wire PCSrc;
 
-    memory uut (
+   memory uut (
         .clk(clk),
-        .ALUResult(ALUResult),
-        .WriteData(WriteData),
-        .WriteReg(WriteReg),
-        .WBControl(WBControl),
-        .MemWrite(MemWrite),
-        .MemRead(MemRead),
-        .Branch(Branch),
-        .Zero(Zero),
-        .ReadData(ReadData),
-        .ALUResult_out(ALUResult_out),
-        .WriteReg_out(WriteReg_out),
-        .WBControl_out(WBControl_out),
-        .PCSrc(PCSrc)
+        // Updated to match memory.v naming
+        .alu_result(ALUResult),
+        .rdata2out(WriteData),
+        .MEM_WB_regwrite(WriteReg),
+        .wb_ctlout(WBControl),
+        .memwrite(MemWrite),
+        .memread(MemRead),
+        .branch(Branch),
+        .zero(Zero),
+        .read_data(ReadData),
+        .mem_alu_result(ALUResult_out),
+        .mem_write_reg(WriteReg_out),
+        .MEM_PCSrc(PCSrc)
+        // .wb_ctlout(WBControl_out), REMOVED because duplicate
     );
+    
     initial begin
         clk = 0;
         forever #5 clk = ~clk;
