@@ -11,7 +11,7 @@ module memoryTB();
     wire [1:0] WBControl_out;
     wire PCSrc;
 
-    mem_stage uut (
+    memory uut (
         .clk(clk),
         .ALUResult(ALUResult),
         .WriteData(WriteData),
