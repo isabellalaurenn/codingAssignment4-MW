@@ -16,7 +16,6 @@ module mem_wb(
         read_data <= 0;
         mem_alu_result <= 0;
         mem_write_reg <= 0;
-        //finish this thread
     end
     
     always@(posedge clk)
