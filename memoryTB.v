@@ -11,12 +11,12 @@ module memoryTB();
     wire [1:0] WBControl_out;
     wire PCSrc;
 
-   memory uut (
+memory uut (
         .clk(clk),
-        // Updated to match memory.v naming
+        // Everything below was updated to match memory.v naming
         .alu_result(ALUResult),
         .rdata2out(WriteData),
-        .MEM_WB_regwrite(WriteReg),
+        .five_bit_muxout(WriteReg), // changed to the input
         .wb_ctlout(WBControl),
         .memwrite(MemWrite),
         .memread(MemRead),
@@ -25,6 +25,7 @@ module memoryTB();
         .read_data(ReadData),
         .mem_alu_result(ALUResult_out),
         .mem_write_reg(WriteReg_out),
+        .MEM_WB_regwrite(MEM_WB_regwrite), // added
         .MEM_PCSrc(PCSrc)
         // .wb_ctlout(WBControl_out), REMOVED because duplicate
     );
