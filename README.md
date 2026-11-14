@@ -5,11 +5,11 @@ Keep this README focused on what the design does, how it is used, and how it was
 verified.
 -->
 ## Design Scope and Assumptions
-- **In scope:** [What this lab implements]
-- **Out of scope:** [What this lab intentionally does not implement]
-- **Assumptions:** [Clock frequency, reset behavior, data width, memory model, or
-other assumptions]
-- **Limitations:** [Known limitations or simplified behaviors]
+- **In scope:** The Memory and Writeback (MEM/WB) stages of the MIPS pipeline are implemented. The memory state ANds the Branch control bit with the ALU Zero flag to produce PCSrc for the fetch stage, reads or writes the data memory, and stores the results in the MEM/WB latch. The write-back stage uses a mux to choose the value that is written back to the register file.
+- **Out of scope:** Connecting all five stages into one complete pipeline, and hazard handling such as forwarding and stalls.
+- **Assumptions:** 32-bit data and addresses. The data mem has 256 words, and the address from the ALU is used directly as the word index, so address 4 would refer to word 4. The data memory writes on the rising clock edge and reads combinationally. The MEM/WB latch captures on the rising clock edge. The memory control bits come in as separate branch, memread, and memwrite signals from the EX/MEM latch. Every word starts out equal to its index (0-255), and data.txt then loads words 0-5. The testbench clock has a 10 ns period.
+- **Limitations:** Addresses of 256 or more are out of range, so reads return unknown and writes are ignored. Only whole 32-bit words can be accessed, with no byte or halfword access.
+
 ## Requirements
 | Requirement | Description | Verification Method |
 |---|---|---|
@@ -19,11 +19,13 @@ inspection] |
 inspection] |
 | REQ-03 | [The design shall ...] | [Test case, waveform, calculation, or
 inspection] |
+
 ## Architecture
 ### Timing or Behavioral Summary
 Save diagrams in the repository's `images/` folder. Use relative paths so they
 display on GitHub.
 ![Timing Diagram](images/[timing-diagram-filename].png)
+
 ## Implementation
 ### Source Code
 | File | Description |
@@ -35,6 +37,7 @@ display on GitHub.
 - [Explain one important design decision.]
 - [Identify any parameterization, reusable module, or interface convention.]
 - [Document any deliberate simplification made for this lab.]
+  
 ## Verification
 ### Verification Strategy
 The design is verified using **[simulation, formal checks, hardware testing, or
@@ -54,6 +57,7 @@ The testbench source is available [*here*](LINK_TO_TESTBENCH_CODE).
 | TC-01 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
 | TC-02 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
 | TC-03 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
+
 ## Reproduction Instructions
 ### Tools and Versions
 - **Simulator / synthesis tool:** [Name and version]
@@ -70,6 +74,7 @@ Expected output:
 ```text
 [Paste a short representative output or result here.]
 ```
+
 ## Repository Organization
 ```text
 .
