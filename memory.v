@@ -1,6 +1,7 @@
 /* Memory Stage: This uses the outputs of Execute Stage as well as combining the modules: and, data_memory, and mem_wb.
 */
 module memory(
+ input wire clk;
  input wire [1:0] wb_ctlout,
  input wire branch, memread, memwrite,
  input wire zero,
@@ -33,6 +34,7 @@ module memory(
  );
  
  mem_wb mem_wb4(
+ .clk(clk),
  .control_wb_in(wb_ctlout), // inputs
  .read_data_in(read_data_in),
  .alu_result_in(alu_result),
