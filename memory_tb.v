@@ -1,4 +1,5 @@
 //memoryTB.v
+`timescale 1ns/1ps
 
 module memory_tb();
     
@@ -10,6 +11,7 @@ module memory_tb();
     wire [31:0] ReadData, ALUResult_out;
     wire [4:0] WriteReg_out;
     wire [1:0] WBControl_out;
+    wire MEM_WB_regwrite, MEM_WB_memtoreg;
     wire PCSrc;
     
     memory uut (
