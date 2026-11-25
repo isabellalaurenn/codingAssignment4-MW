@@ -53,7 +53,7 @@ Verification covers:
 - The MEM/WB latch outputs start at 0, and memory words 0-5 start with the values 0-5.
 ### Testbench and Waveform
 Save screenshots and waveform images in the repository's `images/` folder.
-![Testbench or waveform](images/testbenchDiagram.png)
+![Testbench or waveform](images/testbenchDiagramV2.png)
 The testbench source is available [*here*](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/memory_tb.v).
 ### Results
 | Test Case | Expected Result | Observed Result | Status |
@@ -89,8 +89,8 @@ Waveform Diagram should output corresponding signals to the described Test Cases
 .
 ├── README.md
 ├── images/
-│ ├── [timing-diagram-filename].png
-│ └── testbenchDiagram.webp
+│ ├── MEMWBDiagram.png
+│ └── testbenchDiagramV2.png
 ├── AND.v
 ├── data_memory.v
 ├── data.txt
