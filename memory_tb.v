@@ -12,6 +12,7 @@ module memory_tb();
     wire [4:0] WriteReg_out;
     wire MEM_WB_regwrite, MEM_WB_memtoreg;
     wire PCSrc;
+    wire [31:0] write_data_out; // added to test writeback.v functionality
     
     memory uut (
         .clk(clk),
@@ -30,6 +31,14 @@ module memory_tb();
         .MEM_WB_regwrite(MEM_WB_regwrite), // added
         .MEM_WB_memtoreg(MEM_WB_memtoreg), // also added!
         .MEM_PCSrc(PCSrc)
+    );
+
+    // tests writeback.v functionality
+    writeback wb_test (
+        .mem_to_reg(MEM_WB_memtoreg),
+        .read_data(ReadData),
+        .mem_alu_result(ALUResult_out),
+        .write_data(write_data_out)
     );
     
     initial begin
