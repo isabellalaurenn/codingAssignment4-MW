@@ -45,13 +45,11 @@ In the write-back stage, a mux controller by MemToReg picks between thedata read
   
 ## Verification
 ### Verification Strategy
-The design is verified using **[simulation, formal checks, hardware testing, or
-another method]**.
+The design is verified using **behavioural simulation in Vivado with timing diagrams**.
 Verification covers:
-- [Normal operating case]
-- [Boundary or maximum-value case]
-- [Reset or initialization case]
-- [Invalid, stalled, or exceptional case, if applicable]
+- A load from address 4, a store to address 4, and the write-back mux selecting both the ALU result and the memory data.
+- Boundary case: reading back a word that was just stored (word 4 changes from 4 to 12345678), and a branch with both Branch and Zero set.
+- The MEM/WB latch outputs start at 0, and memory words 0-5 start with the values 0-5.
 ### Testbench and Waveform
 Save screenshots and waveform images in the repository's `images/` folder.
 ![Testbench or waveform](images/[testbench-screenshot-filename].png)
