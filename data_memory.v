@@ -17,7 +17,7 @@ module data_memory (
     
     initial begin
         // DMEM[0-255] = 0-255 first so every word has a known value
-        for i = 0; i < 256; i++)
+        for (i = 0; i < 256; i++)
             DMEM[i] = i;
         // DMEM[0-5] from data.txt
         $readmemb("data.txt", DMEM, 0, 5);
