@@ -57,25 +57,30 @@ The testbench source is available [*here*](https://github.com/isabellalaurenn/co
 ### Results
 | Test Case | Expected Result | Observed Result | Status |
 |---|---|---|---|
-| TC-01 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
-| TC-02 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
-| TC-03 — [Name] | [Expected behavior] | [Observed behavior] | Pass / Fail |
+| TC-01 — LW from address 4 | ReadData = 4, ALUResult_out = 4, WriteReg_out = 2, MEM_WB_regwrite = 1, MEM_WB_memtoreg = 1, PCSrc = 0 | Matches expected values | Pass |
+| TC-02 — SW to address 4| Word 4 becomes 12345678 on the clock edge, MEM_WB-regwrite = 0, ReadData = 0 | Matches expected values | Pass |
+| TC-03 — Load back from address 4 | ReadData = 12345678 | Matches expected values | Pass |
+| TC-04 — Branch taken | Branch = 1 and Zero = 1 makes PCSrc = 1 | Matches expected values | Pass |
+| TC-05 — Branch not taken | Branch = 1 and Zero = 0 makes PCSrc = 0 | Matches expected values | Pass |
+| TC-06 — Not a branch instruction | Branch = 0 and Zero = 1 makes PCSrc also = 0 | Matches expected values | Pass |
 
 ## Reproduction Instructions
 ### Tools and Versions
 - **Simulator / synthesis tool:** Xilinx Vivado
 - **Language / standard:** Verilog
 - **Operating system:** Windows
-- **Additional dependencies:** n/a
+- **Additional dependencies:** data.txt must be added to the project as a Simulation Source so $readmemb can find it
 ### Build and Run
 ```bash
-# Replace these commands with the commands required for this lab.
-[compile-command]
-[run-command]
+In Vivado:
+1) Create an RTL project and add AND.v, data_memory.v, mem_wb_latch.v, memory.v, and writeback.v as Design Sources.
+2) Add memory_tb.v and data.txt as Simulation Sources.
+3) Set memory_tb.v as the top module and Run Behavioural Simulation.
+4) Add the testbench signals to the waveform
 ```
 Expected output:
 ```text
-[Paste a short representative output or result here.]
+Waveform Diagram should output corresponding signals to the described Test Cases
 ```
 
 ## Repository Organization
@@ -84,10 +89,17 @@ Expected output:
 ├── README.md
 ├── images/
 │ ├── [timing-diagram-filename].png
-│ └── [testbench-screenshot-filename].png
-├── [source-files]
-└── [testbench-files]
+│ └── testbenchDiagram.webp
+├── AND.v
+├── data_memory.v
+├── data.txt
+├── mem_wb_latch.v
+├── memory.v
+├── memory_tb.v
+└── writeback.v
 ```
 ## Known Issues and Future Improvements
-- [Document any known issue, unverified behavior, or technical debt.]
-- [Describe a realisti
+- Addresses of 256 or more are out of range, it would return unknown values and writes are ignored.
+- The data memory uses word addressing while the fetch stage uses byte addressing. Need to fix for consistency
+- There is no reset input, so the latch and the memory only get their starting values from initial blocks. To be implemented!
+- Will connect with other stages of the pipeline later.
