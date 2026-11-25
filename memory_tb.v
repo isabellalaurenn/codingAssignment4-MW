@@ -28,6 +28,7 @@ module memory_tb();
         .mem_alu_result(ALUResult_out),
         .mem_write_reg(WriteReg_out),
         .MEM_WB_regwrite(MEM_WB_regwrite), // added
+        .MEM_WB_memtoreg(MEM_WB_memtoreg), // also added!
         .MEM_PCSrc(PCSrc)
     );
     
