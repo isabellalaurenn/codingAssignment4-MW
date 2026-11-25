@@ -18,9 +18,7 @@ module mem_wb(
         mem_write_reg <= 0;
     end
     
-    always@(posedge clk)
-        begin
-        #1
+    always@(posedge clk) begin
         regwrite <= control_wb_in[1]; // refer to Lab 2-2 Figure 2.2
         memtoreg <= control_wb_in[0];
         read_data <= read_data_in;
