@@ -5,7 +5,7 @@ Keep this README focused on what the design does, how it is used, and how it was
 verified.
 -->
 ## Design Scope and Assumptions
-- **In scope:** The Memory and Writeback (MEM/WB) stages of the MIPS pipeline are implemented. The memory state ANds the Branch control bit with the ALU Zero flag to produce PCSrc for the fetch stage, reads or writes the data memory, and stores the results in the MEM/WB latch. The write-back stage uses a mux to choose the value that is written back to the register file.
+- **In scope:** The Memory and Writeback (MEM/WB) stages of the MIPS pipeline are implemented. The memory state ANDs the Branch control bit with the ALU Zero flag to produce PCSrc for the fetch stage, reads or writes the data memory, and stores the results in the MEM/WB latch. The write-back stage uses a mux to choose the value that is written back to the register file.
 - **Out of scope:** Connecting all five stages into one complete pipeline, and hazard handling such as forwarding and stalls.
 - **Assumptions:** 32-bit data and addresses. The data mem has 256 words, and the address from the ALU is used directly as the word index, so address 4 would refer to word 4. The data memory writes on the rising clock edge and reads combinationally. The MEM/WB latch captures on the rising clock edge. The memory control bits come in as separate branch, memread, and memwrite signals from the EX/MEM latch. Every word starts out equal to its index (0-255), and data.txt then loads words 0-5. The testbench clock has a 10 ns period.
 - **Limitations:** Addresses of 256 or more are out of range, so reads return unknown and writes are ignored. Only whole 32-bit words can be accessed, with no byte or halfword access.
@@ -13,15 +13,17 @@ verified.
 ## Requirements
 | Requirement | Description | Verification Method |
 |---|---|---|
-| REQ-01 | [The design shall ...] | [Test case, waveform, calculation, or
-inspection] |
-| REQ-02 | [The design shall ...] | [Test case, waveform, calculation, or
-inspection] |
-| REQ-03 | [The design shall ...] | [Test case, waveform, calculation, or
-inspection] |
+| REQ-01 | The memory stage shall set PCSrc to 1 only when both Branch and Zero are 1 | Waveform |
+| REQ-02 | When MemRead is 1, the data memory shall output the word stores at the address given by the ALU result | Waveform |
+| REQ-03 | When MemWrite is 1, the data memory shall store ReadData2 atthe ALU-result address on the rising clock edge | Waveform |
+| REQ-04 | The MEM/WB latch shall capture RegWrite, MemToReg, ReadData, the ALU result, and the write register number on the rising clock edge | Waveform |
+| REQ-05 | The write-back mux shall output ReadData when MemtoReg is 1 and the ALU result when MemToReg is 0| Waveform |
+| REQ-06 | The memory stage module shall contain the AND gate, the data memory, and the MEM/WB latch | memory.v inspection and the overall testbench|
 
 ## Architecture
 ### Timing or Behavioral Summary
+In the memory stage, the AND gate combines Branch (from the EX/MEM latch) with Zero to create PCSrc, which goes back to the fetch stage's mux. At the same time, the data memory uses the ALU result as its address. A load (MemRead = 1) puts the word at that address on read_data, and a store (MemWrite = 1) writes ReadData2 into that address on the rising clock edge. On the same clock edge, the MEM/WB latch captures the control bits, the memory data, the ALU result and the write reg number. 
+In the write-back stage, a mux controller by MemToReg picks between thedata read from memory (loads) and the ALU result (R-type instructions). Its output goes back to the register file in the decode stage, along with RegWrite and the write register number.
 ![Timing Diagram](images/timingDiagram.webp)
 
 ## Implementation
@@ -37,9 +39,9 @@ inspection] |
 | [`data.txt`](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/data.txt) | Initial contents of data memory words 0-5 |
 
 ### Implementation Notes
-- [Explain one important design decision.]
-- [Identify any parameterization, reusable module, or interface convention.]
-- [Document any deliberate simplification made for this lab.]
+- The data memory writes on the clock edge but reads combinationally. A registered read would arrive one cycle later than the ALU result and the write register number so the MEM/WB latch would hold data from different instructions. The combinational read keeps everything lined up on the same clock edge.
+- Interface conventions: wb_ctlout[1] is RegWrite and wb_ctlout[0] is MemToReg, and PCSrc goes to the fetch stage's mem_pc_src input. The writeback output goes to the decode stage's mem_wb_write_data, with MEM_WB_regwrite going to wb_reg_write and the write register number going to wb_write_reg_location.
+- The memory is only 256 words, and every word is first set to its own index so that no word is unknown. data.txt then loads words 0-5 with the same values (0-5) so the emory also works if data.txt can't be found.
   
 ## Verification
 ### Verification Strategy
