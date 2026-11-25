@@ -25,7 +25,7 @@ verified.
 In the memory stage, the AND gate combines Branch (from the EX/MEM latch) with Zero to create PCSrc, which goes back to the fetch stage's mux. At the same time, the data memory uses the ALU result as its address. A load (MemRead = 1) puts the word at that address on read_data, and a store (MemWrite = 1) writes ReadData2 into that address on the rising clock edge. On the same clock edge, the MEM/WB latch captures the control bits, the memory data, the ALU result and the write reg number. 
 In the write-back stage, a mux controller by MemToReg picks between thedata read from memory (loads) and the ALU result (R-type instructions). Its output goes back to the register file in the decode stage, along with RegWrite and the write register number.
 ![Timing Diagram](images/testbenchDiagram.png)
-![MEM/WB Stages Diagram](images/memWbDiagram.png)
+![MEM/WB Stages Diagram](images/MEMWBDiagram.png)
 
 ## Implementation
 ### Source Code
