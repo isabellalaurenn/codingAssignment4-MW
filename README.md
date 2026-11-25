@@ -24,7 +24,8 @@ verified.
 ### Timing or Behavioral Summary
 In the memory stage, the AND gate combines Branch (from the EX/MEM latch) with Zero to create PCSrc, which goes back to the fetch stage's mux. At the same time, the data memory uses the ALU result as its address. A load (MemRead = 1) puts the word at that address on read_data, and a store (MemWrite = 1) writes ReadData2 into that address on the rising clock edge. On the same clock edge, the MEM/WB latch captures the control bits, the memory data, the ALU result and the write reg number. 
 In the write-back stage, a mux controller by MemToReg picks between thedata read from memory (loads) and the ALU result (R-type instructions). Its output goes back to the register file in the decode stage, along with RegWrite and the write register number.
-![Timing Diagram](images/timingDiagram.webp)
+![Timing Diagram](images/testbenchDiagram.png)
+![MEM/WB Stages Diagram](images/memWbDiagram.png)
 
 ## Implementation
 ### Source Code
@@ -52,7 +53,7 @@ Verification covers:
 - The MEM/WB latch outputs start at 0, and memory words 0-5 start with the values 0-5.
 ### Testbench and Waveform
 Save screenshots and waveform images in the repository's `images/` folder.
-![Testbench or waveform](images/[testbench-screenshot-filename].png)
+![Testbench or waveform](images/testbenchDiagram.png)
 The testbench source is available [*here*](https://github.com/isabellalaurenn/codingAssignment4-MW/blob/main/memory_tb.v).
 ### Results
 | Test Case | Expected Result | Observed Result | Status |
